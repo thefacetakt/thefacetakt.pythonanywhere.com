@@ -1,11 +1,10 @@
-SERVER_URL = "http://127.0.0.1:5002/"
-
 from flask import render_template, redirect, request
 
 from .urls import get_url, add_url
 
 from ..views import app
 
+from .config import SERVER_URL
 
 def make_normal(url):
     if (url[:7] == "http://" or url[:8] == "https://"):
