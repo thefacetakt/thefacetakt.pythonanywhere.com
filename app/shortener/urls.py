@@ -1,5 +1,6 @@
+path_to_module = __file__[:-len("urls.py")]
 
-DATA_FILE = "app/shortener/urls.txt"
+DATA_FILE = path_to_module + "/urls.txt"
 
 DATA_ENCODING = "utf-8"
 
