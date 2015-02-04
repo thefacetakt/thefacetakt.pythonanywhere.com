@@ -1,6 +1,7 @@
 {% extends "shortener/base.html" %}
 {% block content %}
 
+
 <h2 class="text-center">
     Shorten an url!
 </h2>
@@ -9,7 +10,7 @@
         <label>
             Your url:
         </label>
-        <input type="text" class="form-control" name="url" />
+        <input type="text" class="form-control" name="url" value="{{ url }}" />
         <label>
             New link (optional):
         </label>
@@ -22,6 +23,14 @@
         </div>
     </div>
 </form>
+
+<br />
+
+{% if wrong_form %}
+    <p class="alert alert-warning text-center">    
+        Sorry! Short name you've chosen is already in use
+    </p>
+{% endif %}
 
 {% endblock %}
         
