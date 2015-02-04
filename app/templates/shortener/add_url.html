@@ -1,6 +1,16 @@
 {% extends "shortener/base.html" %}
-{% block content %}
 
+{% if wrong_form %}
+    {% block head %}
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("#short-url").select();
+            });
+        </script>
+    {% endblock %}
+{% endif %}
+
+{% block content %}
 
 <h2 class="text-center">
     Shorten an url!
@@ -14,7 +24,7 @@
         <label>
             New link (optional):
         </label>
-        <input type="text" class="form-control" name="short-url" />
+        <input type="text" class="form-control" name="short-url" id="short-url" value="{{short_url}}" />
         </br>
         <div class="btn-group btn-group-justified">
             <div class="btn-group">
