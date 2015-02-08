@@ -3,6 +3,8 @@ window.W = 8;
 
 
 window.color = ["rgb(255, 3, 62)", "rgb(0, 165, 80)", "rgb(255, 255, 255)"];
+window.classes = ["alert-danger", "alert-success"];
+window.text = ["red's", "green's"]
 window.RED = 0;
 window.GREEN = 1;
 window.NONE = 2;
@@ -12,10 +14,14 @@ window.directions = [[0, 0], [0, -1], [0, 1], [1, 0], [-1, 0]];
 
 window.data = {map : undefined, turn : undefined}
 
+
+//coordsToId(X, Y) -> "tdX_Y"
 function coordsToId(X, Y) {
     return "td" + X.toString() + "_" + Y.toString();
 }
 
+
+//idToCoords("tdX_Y") -> [X, Y]
 function idToCoords(id) {
     var X = parseInt(id.slice(2));
     var Y = parseInt(id.slice(2 + X.toString().length + 1));
@@ -25,6 +31,12 @@ function idToCoords(id) {
 
 function valid(X, Y) {
     return (X >= 0 && Y >= 0 && X < H && Y < W);
+}
+
+function updateTurn() {
+    $("#turn").removeClass(classes[data.turn ^ 1]);
+    $("#turn").addClass(classes[data.turn]);
+    $("#turn").html("This is " + text[data.turn] + " turn")
 }
 
 function go(id) {
@@ -87,6 +99,7 @@ function updateData() {
        		data.map = result.map;
        		data.turn = result.turn;
        		drawMap();
+            updateTurn();
         }
     });
     setTimeout(updateData, 1000); 
@@ -114,11 +127,12 @@ $(document).on("click", ".cell", function() {
     //    $(this).html(parseInt($(this).html()) + 1);
         go($(this).attr("id"));
         data.turn ^= 1;
-        console.log("HERE");
+        updateTurn();
         $.post('/clonium/update_servers', {
             map: JSON.stringify(data.map),
             turn: JSON.stringify(data.turn)
         });
+
     }
 
 });
